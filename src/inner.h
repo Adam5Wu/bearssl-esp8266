@@ -2351,7 +2351,7 @@ br_cpuid(uint32_t mask_eax, uint32_t mask_ebx,
 
 #endif
 
-#ifdef ESP8266
+#if defined(ESP8266) && ESP8266_ALTSTACK
 
 #define ESP8266_DEBUG 0
   #ifdef __cplusplus
