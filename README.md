@@ -10,6 +10,6 @@ Reverted custom stack proxy, works better with AsyncTCP.
 * [Upstream Project](https://github.com/earlephilhower/bearssl-esp8266)
 * [Modifications of this fork](MODIFICATIONS.md)
 * Requires:
-	- [ESP8266 Arduino Core fork](https://github.com/Adam5Wu/Arduino)
+	- [ESP8266 Arduino Core fork](https://github.com/Adam5Wu/Arduino-esp8266)
 * Potentially interesting:
   - [ESPAsyncTCP fork](https://github.com/Adam5Wu/ESPAsyncTCP)
