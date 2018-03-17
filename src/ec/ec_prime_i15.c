@@ -480,7 +480,7 @@ run_code(jacobian *P1, const jacobian *P2,
 	for (u = 0;; u ++) {
 		unsigned op, d, a, b;
 
-		yield();
+		optimistic_yield(10000);
 
 		op = code[u];
 		if (op == 0) {
