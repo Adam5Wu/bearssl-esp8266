@@ -177,6 +177,7 @@ verify_SKE_sig(br_ssl_client_context *ctx,
 		}
 		hv_len = 36;
 	}
+
 	if (use_rsa) {
 //		unsigned char tmp[64];
 		STACK_PROXY_ALLOC(unsigned char, tmp, 64);
@@ -286,6 +287,7 @@ make_pms_ecdh(br_ssl_client_context *ctx, unsigned ecdhe, int prf_id)
 
 	ctx->eng.iec->mulgen(point, key, olen, curve);
 	memcpy(ctx->eng.pad, point, glen);
+
 	STACK_PROXY_EXIT();
 	return (int)glen;
 }
