@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 Thomas Pornin <pornin@bolet.org>
  *
- * Permission is hereby granted, free of charge, to any person obtaining 
+ * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
  * without limitation the rights to use, copy, modify, merge, publish,
@@ -9,12 +9,12 @@
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
  *
- * The above copyright notice and this permission notice shall be 
+ * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
  * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
  * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
@@ -2359,6 +2359,7 @@ br_cpuid(uint32_t mask_eax, uint32_t mask_ebx,
 
   #define _debugBearSSL (0)
   extern void optimistic_yield(uint32_t);
+  extern void system_soft_wdt_feed();
   extern void br_stack_proxy_enter();
   extern void *br_stack_proxy_alloc(size_t bytes);
   extern void br_stack_proxy_exit();
@@ -2369,7 +2370,7 @@ br_cpuid(uint32_t mask_eax, uint32_t mask_ebx,
   #define STACK_PROXY_EXIT()  { if (_debugBearSSL) { char b[64]; sprintf(b, "EXIT: %s:%s\n", __FILE__, __FUNCTION__ ); _BearSSLSerialPrint(b); } br_stack_proxy_exit();  }
   #define STACK_PROXY_ALLOC(type, name, count) \
 		type *name = (type *)br_stack_proxy_alloc(sizeof(type) * (count));\
-		if (!name) name = (type *)alloca(sizeof(type) * (count)); 
+		if (!name) name = (type *)alloca(sizeof(type) * (count));
   #define dumpstack() if (_debugBearSSL) _BearSSLCheckStack(__FUNCTION__, __FILE__, __LINE__); else {}
 
   #ifdef __cplusplus
@@ -2382,6 +2383,13 @@ br_cpuid(uint32_t mask_eax, uint32_t mask_ebx,
   #define STACK_PROXY_ALLOC(type, name, count) type name[count]
   #define dumpstack()
   #define optimistic_yield(ignored)
+
+  #if defined(ESP8266)
+  extern void system_soft_wdt_feed();
+  #else
+  #define system_soft_wdt_feed()
+  #endif
+
 #endif
 
 
