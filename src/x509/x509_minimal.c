@@ -1301,8 +1301,7 @@ br_x509_minimal_run(void *t0ctx)
 		ta = CTX->trust_anchor_dynamic(CTX->trust_anchor_dynamic_ctx, CTX->saved_dn_hash, DNHASH_LEN);
 		if (ta) {
 			//memcpy(hashed_DN, ta->dn.data, DNHASH_LEN);
-			int ret;
-			ret = check_single_trust_anchor_CA(CTX, CTX->saved_dn_hash, ta);
+			int ret = check_single_trust_anchor_CA(CTX, CTX->saved_dn_hash, ta);
 			if (CTX->trust_anchor_dynamic_free) {
 				CTX->trust_anchor_dynamic_free(CTX->trust_anchor_dynamic_ctx, ta);
 			}
