@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/github/license/Adam5Wu/bearssl-esp8266.svg)](./LICENSE.txt)
 
 BearSSL port for ESP8266.
-Reverted custom stack proxy, works better with AsyncTCP.
+With small patches, works better with AsyncTCP.
 
 * [Upstream Project](https://github.com/earlephilhower/bearssl-esp8266)
 * [Modifications of this fork](MODIFICATIONS.md)
