@@ -73,11 +73,13 @@ void *br_stack_proxy_alloc(size_t bytes)
 		return (void*)ptr;
 	}
 	// If we're here, the 2nd stack allocation failed.  Record if in debug mode
-	if (_debugBearSSL) {
+#if DEBUG_BEARSSL
+	{
 		char a[32];
 		sprintf(a,"stack2 alloc %d fail\n", bytes);
 		_BearSSLSerialPrint(a);
 	}
+#endif
 	return NULL;
 }
 
