@@ -2376,7 +2376,7 @@ br_cpuid(uint32_t mask_eax, uint32_t mask_ebx,
 
 #endif
 
-#if defined(ESP8266) && ESP8266_ALTSTACK
+#ifdef ESP8266
 
   #ifdef __cplusplus
   extern "C" {
@@ -2385,6 +2385,8 @@ br_cpuid(uint32_t mask_eax, uint32_t mask_ebx,
   #define _debugBearSSL (0)
   extern void optimistic_yield(uint32_t);
   extern void system_soft_wdt_feed();
+
+  #ifdef ESP8266_ALTSTACK
   extern void br_stack_proxy_enter();
   extern void *br_stack_proxy_alloc(size_t bytes);
   extern void br_stack_proxy_exit();
@@ -2398,6 +2400,14 @@ br_cpuid(uint32_t mask_eax, uint32_t mask_ebx,
 		if (!name) name = (type *)alloca(sizeof(type) * (count));
   #define dumpstack() if (_debugBearSSL) _BearSSLCheckStack(__FUNCTION__, __FILE__, __LINE__); else {}
 
+  #else
+
+  #define STACK_PROXY_ENTER()
+  #define STACK_PROXY_EXIT()
+  #define STACK_PROXY_ALLOC(type, name, count) type name[count]
+  #define dumpstack()
+  #endif
+
   #ifdef __cplusplus
   }
   #endif
@@ -2408,13 +2418,7 @@ br_cpuid(uint32_t mask_eax, uint32_t mask_ebx,
   #define STACK_PROXY_ALLOC(type, name, count) type name[count]
   #define dumpstack()
   #define optimistic_yield(ignored)
-
-  #if defined(ESP8266)
-  extern void system_soft_wdt_feed();
-  #else
   #define system_soft_wdt_feed()
-  #endif
-
 #endif
 
 

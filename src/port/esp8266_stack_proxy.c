@@ -1,4 +1,4 @@
-#ifdef ESP8266
+#if defined(ESP8266) && defined(ESP8266_ALTSTACK)
 /*
  * Implement a stupid-simple stack variable replacement allocator
  * There are *massive* restrictions on its use, this is not a real malloc()!
